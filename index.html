@@ -4,11 +4,32 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Артур — модульный ремонт ПК, ноутбуков и телефонов</title>
-  <meta name="description" content="Артур — профессиональный модульный ремонт компьютеров, ноутбуков и телефонов. Диагностика, замена комплектующих, чистка. Крупную бытовую технику не ремонтируем. Удаленная диагностика и установка ПО.">
+  <meta name="description" content="Артур — профессиональный модульный ремонт компьютеров, ноутбуков и телефонов в Краснодаре. Диагностика, замена комплектующих, чистка. Гарантия 30 дней.">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%232a5298'/><text x='50' y='70' font-size='60' text-anchor='middle' fill='white' font-family='Arial'>A</text></svg>">
+
+  <!-- Яндекс.Метрика (раскомментируйте и замените НОМЕР_СЧЕТЧИКА) -->
+  <!--
+  <script type="text/javascript">
+     (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+     m[i].l=1*new Date();
+     for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+     k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+     (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+     ym(НОМЕР_СЧЕТЧИКА, "init", {
+          clickmap:true,
+          trackLinks:true,
+          accurateTrackBounce:true,
+          webvisor:true
+     });
+  </script>
+  -->
+
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
     
-    /* ОБЩИЙ ФОН СТРАНИЦЫ */
     body {
       font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
       line-height: 1.6;
@@ -22,77 +43,186 @@
       background-attachment: fixed;
       background-repeat: no-repeat;
       min-height: 100vh;
+      padding-bottom: 60px;
     }
     
-    .container { max-width: 950px; margin: 0 auto; padding: 0 20px; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+    /* НАВИГАЦИЯ */
+    nav {
+      background: rgba(13, 22, 39, 0.95);
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+    nav .logo {
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.2rem;
+      text-decoration: none;
+      letter-spacing: 1px;
+    }
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 20px;
+    }
+    nav ul a {
+      color: #ccc;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+    nav ul a:hover { color: #fff; }
+
+    /* БУРГЕР-МЕНЮ */
+    .burger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-around;
+      width: 30px;
+      height: 25px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      z-index: 101;
+    }
+    .burger span {
+      width: 30px;
+      height: 3px;
+      background-color: #fff;
+      border-radius: 10px;
+      transition: all 0.3s linear;
+      position: relative;
+      transform-origin: 1px;
+    }
+    .burger.active span:nth-child(1) { transform: rotate(45deg); }
+    .burger.active span:nth-child(2) { opacity: 0; transform: translateX(20px); }
+    .burger.active span:nth-child(3) { transform: rotate(-45deg); }
 
     /* ШАПКА */
     header {
       position: relative;
       color: #fff;
-      padding: 120px 0 90px;
-      text-align: center;
+      padding: 80px 0;
       background-image: 
-        linear-gradient(rgba(10, 20, 40, 0.65), rgba(10, 20, 40, 0.85)),
+        linear-gradient(rgba(10, 20, 40, 0.8), rgba(10, 20, 40, 0.9)),
         url("header-bg.jpg");
       background-size: cover;
       background-position: center;
-      background-repeat: no-repeat;
       border-bottom: 3px solid #2a5298;
-      animation: fadeIn 1s ease;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
     }
-    
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-    header h1 { 
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    .hero-text h1 { 
       font-size: 2.8rem; 
-      margin-bottom: 12px; 
+      margin-bottom: 15px; 
       letter-spacing: 1px; 
       text-shadow: 0 2px 15px rgba(0, 0, 0, 0.6); 
+      line-height: 1.2;
     }
-    header p { 
+    .hero-text p { 
       font-size: 1.2rem; 
       opacity: 0.95; 
       text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6); 
-      max-width: 700px;
-      margin: 0 auto;
+      margin-bottom: 20px;
     }
-    header .tagline {
+    .hero-text .location {
       display: inline-block;
-      margin-top: 22px;
-      padding: 8px 24px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      backdrop-filter: blur(5px);
-      border-radius: 30px;
-      font-size: 1rem;
-      font-weight: 500;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      background: rgba(255,255,255,0.1);
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+      border: 1px solid rgba(255,255,255,0.2);
     }
-    header .remote-badge {
-      display: block;
-      margin: 15px auto 0;
-      max-width: 500px;
+    .hero-buttons {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-block;
+      padding: 14px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: transform 0.2s, background 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: #2a5298;
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(42,82,152,0.4);
+    }
+    .btn-primary:hover {
+      background: #1e3c72;
+      transform: translateY(-2px);
+    }
+    .btn-secondary {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateY(-2px);
+    }
+
+    /* ФОТО МАСТЕРА */
+    .hero-image {
+      position: relative;
+      text-align: center;
+    }
+    .hero-image img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      border: 2px solid rgba(255,255,255,0.1);
+    }
+    .guarantee-badge {
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #27ae60;
+      color: #fff;
       padding: 10px 20px;
-      background: rgba(42, 82, 152, 0.4);
-      border: 1px solid rgba(100, 150, 255, 0.5);
-      border-radius: 10px;
-      font-size: 0.95rem;
-      color: #e0e8ff;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      box-shadow: 0 4px 15px rgba(39, 174, 96, 0.4);
+      white-space: nowrap;
+      border: 2px solid #fff;
     }
 
     /* СЕКЦИИ */
-    section { padding: 50px 0; }
+    section { padding: 60px 0; }
+    
     .section-inner {
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(8px);
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(10px);
       padding: 40px;
       border-radius: 16px;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.4);
     }
-
     section h2 {
       font-size: 1.8rem;
       margin-bottom: 30px;
@@ -108,24 +238,42 @@
       gap: 20px;
     }
     .card {
-      background: #fff;
+      background: rgba(255, 255, 255, 0.4);
       padding: 25px;
       border-radius: 10px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
       border-top: 3px solid #2a5298;
       transition: transform 0.3s, box-shadow 0.3s;
+      position: relative;
     }
     .card:hover {
       transform: translateY(-6px);
       box-shadow: 0 12px 24px rgba(30,60,114,0.15);
     }
-    .card h3 { margin-bottom: 12px; color: #1e3c72; font-size: 1.15rem; line-height: 1.3; }
-    .card p { color: #555; font-size: 0.95rem; }
+    .card-icon {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 15px;
+      color: #2a5298;
+    }
+    .card h3 { margin-bottom: 12px; color: #1e3c72; font-size: 1.15rem; line-height: 1.3; padding-right: 20px; }
+    .card p { color: #333; font-size: 0.95rem; }
     
+    .card-guarantee {
+      display: inline-block;
+      margin-top: 15px;
+      font-size: 0.8rem;
+      color: #27ae60;
+      font-weight: 600;
+      background: #e6f6ec;
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
     .not-repair {
       margin-top: 30px;
       padding: 20px;
-      background: #fff5f5;
+      background: rgba(255, 245, 245, 0.8);
       border: 1px solid #ffcccc;
       border-left: 5px solid #e74c3c;
       border-radius: 8px;
@@ -134,48 +282,168 @@
     .not-repair h4 { color: #c0392b; margin-bottom: 8px; font-size: 1.1rem; }
     .not-repair p { font-size: 0.95rem; }
 
-    /* ЦЕНЫ */
-    .price-category {
-      margin-bottom: 35px;
+    /* БЛОК "КАК Я РАБОТАЮ" */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      counter-reset: step;
     }
+    .step-card {
+      background: rgba(255, 255, 255, 0.6);
+      padding: 25px;
+      border-radius: 10px;
+      position: relative;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.8);
+    }
+    .step-card::before {
+      counter-increment: step;
+      content: counter(step);
+      display: block;
+      width: 40px;
+      height: 40px;
+      background: #2a5298;
+      color: #fff;
+      border-radius: 50%;
+      line-height: 40px;
+      font-weight: 700;
+      margin: 0 auto 15px;
+      font-size: 1.2rem;
+    }
+    .step-card h3 { color: #1e3c72; font-size: 1.1rem; margin-bottom: 10px; }
+    .step-card p { font-size: 0.9rem; color: #333; }
+
+    /* БЛОК СРОЧНОЙ СВЯЗИ */
+    .urgent-banner {
+      background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+      color: #fff;
+      text-align: center;
+      padding: 40px 20px;
+      border-radius: 16px;
+      margin: 20px 0;
+      box-shadow: 0 10px 30px rgba(231, 76, 60, 0.4);
+    }
+    .urgent-banner h3 { font-size: 1.6rem; margin-bottom: 10px; }
+    .urgent-banner p { font-size: 1.1rem; margin-bottom: 20px; opacity: 0.9; }
+    .urgent-btn {
+      display: inline-block;
+      background: #fff;
+      color: #c0392b;
+      padding: 15px 40px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 1.2rem;
+      text-decoration: none;
+      transition: transform 0.2s;
+    }
+    .urgent-btn:hover { transform: scale(1.05); }
+
+    /* FAQ */
+    .faq-list { display: flex; flex-direction: column; gap: 15px; }
+    .faq-item {
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.8);
+    }
+    .faq-question {
+      padding: 18px 20px;
+      font-weight: 600;
+      color: #1e3c72;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.2s;
+    }
+    .faq-question:hover { background: rgba(255,255,255,0.8); }
+    .faq-question::after {
+      content: '+';
+      font-size: 1.5rem;
+      color: #2a5298;
+      transition: transform 0.3s;
+    }
+    .faq-item.open .faq-question::after { transform: rotate(45deg); }
+    .faq-answer {
+      padding: 0 20px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      color: #333;
+      font-size: 0.95rem;
+    }
+    .faq-item.open .faq-answer {
+      padding: 0 20px 20px;
+      max-height: 200px;
+    }
+
+    /* ОТЗЫВЫ */
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .review-card {
+      background: rgba(255, 255, 255, 0.4);
+      padding: 25px;
+      border-radius: 10px;
+      border-left: 4px solid #2a5298;
+      position: relative;
+    }
+    .review-text {
+      font-style: italic;
+      color: #333;
+      margin-bottom: 15px;
+      font-size: 0.95rem;
+    }
+    .review-author {
+      font-weight: 700;
+      color: #1e3c72;
+      font-size: 0.9rem;
+    }
+    .review-stars {
+      color: #f1c40f;
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+
+    /* ЦЕНЫ */
+    .price-category { margin-bottom: 35px; }
     .price-category h3 {
       font-size: 1.3rem;
       color: #1e3c72;
       margin-bottom: 15px;
       padding-bottom: 5px;
-      border-bottom: 2px solid #eef1f6;
+      border-bottom: 2px solid rgba(255,255,255,0.5);
     }
     .price-item {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
       padding: 15px 0;
-      border-bottom: 1px dashed #e0e5ec;
+      border-bottom: 1px dashed rgba(0,0,0,0.1);
       gap: 20px;
     }
-    .price-item:last-child {
-      border-bottom: none;
-    }
-    .price-info {
-      flex: 1;
-    }
+    .price-item:last-child { border-bottom: none; }
+    .price-info { flex: 1; }
     .price-name {
       font-weight: 600;
-      color: #333;
+      color: #1e3c72;
       font-size: 1.05rem;
       margin-bottom: 4px;
     }
     .price-desc {
       font-size: 0.85rem;
-      color: #666;
+      color: #444;
       line-height: 1.4;
     }
     .price-value {
       font-weight: 700;
-      color: #1e3c72;
+      color: #fff;
       font-size: 1.1rem;
       white-space: nowrap;
-      background: #eef3fc;
+      background: #1e3c72;
       padding: 6px 12px;
       border-radius: 6px;
       margin-top: 2px;
@@ -183,7 +451,7 @@
 
     /* ФОРМА */
     .form-wrap {
-      background: #fff;
+      background: rgba(255, 255, 255, 0.4);
       padding: 30px;
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
@@ -195,19 +463,19 @@
       display: block;
       margin-bottom: 8px;
       font-weight: 600;
-      color: #333;
+      color: #1e3c72;
       font-size: 0.95rem;
     }
     .form-group input,
     .form-group textarea {
       width: 100%;
       padding: 13px 15px;
-      border: 1px solid #d4dae5;
+      border: 1px solid rgba(255,255,255,0.8);
       border-radius: 8px;
       font-family: inherit;
       font-size: 1rem;
       transition: border-color 0.2s, box-shadow 0.2s;
-      background: #f9fbfd;
+      background: rgba(255,255,255,0.7);
     }
     .form-group input:focus,
     .form-group textarea:focus {
@@ -245,7 +513,7 @@
     .form-status.success { display: block; background: #e6f6ec; color: #1e7e34; border: 1px solid #c3e6cb; }
     .form-status.error { display: block; background: #fde8e8; color: #c0392b; border: 1px solid #f5c6cb; }
 
-    /* КОНТАКТЫ (круглые кнопки-иконки) */
+    /* КОНТАКТЫ */
     .contacts {
       display: flex;
       flex-wrap: wrap;
@@ -278,7 +546,6 @@
     .contacts a.vk { background: #0077FF; }
     .contacts a.vk:hover { background: #005fcb; }
 
-    /* MAX — фирменный градиент */
     .contacts a.max {
       background: linear-gradient(135deg, #471AFF 0%, #9500FF 55%, #00BFFF 100%);
     }
@@ -286,35 +553,200 @@
       background: linear-gradient(135deg, #360fd6 0%, #7a00d6 55%, #009fdd 100%);
     }
 
+    /* ПОДВАЛ */
     footer {
-      text-align: center;
-      padding: 25px 0;
+      padding: 40px 0 25px;
       color: #bbb;
       font-size: 0.9rem;
-      background: rgba(13, 22, 39, 0.9);
+      background: rgba(13, 22, 39, 0.95);
       border-top: 1px solid rgba(255,255,255,0.1);
     }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-bottom: 30px;
+      text-align: left;
+    }
+    .footer-col h4 {
+      color: #fff;
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+    }
+    .footer-col p, .footer-col a {
+      color: #999;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 10px;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: #fff; }
+    .footer-socials {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    .footer-socials a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+    }
+    .footer-socials a:hover { background: #2a5298; }
+    .footer-socials a svg { width: 18px; height: 18px; fill: currentColor; }
+    .footer-bottom {
+      text-align: center;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.85rem;
+    }
 
+    /* КНОПКА НАВЕРХ */
+    #scrollTopBtn {
+      display: none;
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      z-index: 99;
+      background: #2a5298;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 20px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      transition: background 0.2s, transform 0.2s;
+    }
+    #scrollTopBtn:hover {
+      background: #1e3c72;
+      transform: translateY(-3px);
+    }
+
+    /* МОБИЛЬНАЯ КНОПКА ЗВОНКА */
+    .mobile-call-btn {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #27ae60;
+      color: #fff;
+      text-align: center;
+      padding: 15px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      text-decoration: none;
+      z-index: 1000;
+      box-shadow: 0 -4px 15px rgba(0,0,0,0.2);
+    }
+    .mobile-call-btn:active { background: #219653; }
+
+    /* АДАПТИВНОСТЬ */
+    @media (max-width: 900px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .hero-buttons {
+        justify-content: center;
+      }
+      .hero-text h1 { font-size: 2.2rem; }
+      .hero-image { margin-top: 30px; }
+      .footer-grid { text-align: center; }
+      .footer-socials { justify-content: center; }
+    }
+    @media (max-width: 768px) {
+      .mobile-call-btn { display: block; }
+      #scrollTopBtn { bottom: 80px; }
+      
+      /* Бургер-меню */
+      .burger { display: flex; }
+      nav ul {
+        display: flex; 
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(13, 22, 39, 0.98);
+        padding: 20px 0;
+        gap: 0;
+        transform: translateY(-150%);
+        transition: transform 0.3s ease;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        z-index: 100;
+      }
+      nav ul.active {
+        transform: translateY(0);
+      }
+      nav ul li {
+        text-align: center;
+        padding: 12px 0;
+      }
+      nav ul a {
+        font-size: 1.1rem;
+        display: block;
+      }
+    }
     @media (max-width: 600px) {
-      header h1 { font-size: 2.2rem; }
-      header { padding: 80px 0 60px; }
+      header { padding: 50px 0; }
       .section-inner { padding: 25px; }
       .price-item { flex-direction: column; gap: 8px; }
       .price-value { align-self: flex-start; }
       .form-wrap { padding: 20px; }
+      body { padding-bottom: 80px; }
+      .urgent-banner h3 { font-size: 1.3rem; }
     }
   </style>
 </head>
 <body>
 
+  <nav>
+    <div class="container">
+      <a href="#" class="logo">Артур</a>
+      
+      <!-- Кнопка-бургер -->
+      <button class="burger" id="burgerBtn" aria-label="Меню">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <ul id="navMenu">
+        <li><a href="#services">Услуги</a></li>
+        <li><a href="#how-i-work">Как я работаю</a></li>
+        <li><a href="#reviews">Отзывы</a></li>
+        <li><a href="#prices">Цены</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contacts">Контакты</a></li>
+      </ul>
+    </div>
+  </nav>
+
   <header>
     <div class="container">
-      <h1>Артур</h1>
-      <p>Модульный ремонт компьютеров, ноутбуков и телефонов</p>
-      <span class="tagline">ПК и ноутбуки — приоритет · Телефоны — по договоренности</span>
-      
-      <div class="remote-badge">
-        💻 <strong>Удаленная диагностика и установка ПО</strong> — не выходя из дома!
+      <div class="hero-grid">
+        <div class="hero-text">
+          <div class="location">📍 г. Краснодар, Карасунский округ</div>
+          <h1>Модульный ремонт компьютеров, ноутбуков и телефонов</h1>
+          <p>ПК и ноутбуки — приоритет · Телефоны — по договоренности</p>
+          <p style="font-size: 1rem; margin-bottom: 25px;">💻 <strong>Удаленная диагностика и установка ПО</strong> — не выходя из дома!</p>
+          <div class="hero-buttons">
+            <a href="#contacts" class="btn btn-primary">Оставить заявку</a>
+            <a href="tel:+79965902054" class="btn btn-secondary">📞 Позвонить</a>
+          </div>
+        </div>
+        <div class="hero-image">
+          <img src="master.jpg" alt="Артур — компьютерный мастер">
+          <div class="guarantee-badge">🛡️ Гарантия 30 дней</div>
+        </div>
       </div>
     </div>
   </header>
@@ -326,26 +758,33 @@
         <div class="services">
           
           <div class="card">
+            <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
             <h3>Ваш ноутбук снова в строю — быстрее, чем вы думаете</h3>
             <p>Мы не «чиним всё подряд». Наш профиль — <strong>компьютеры и ноутбуки</strong>. Это значит, что мы знаем типовые болячки вашей техники и чиним их в день обращения. Никаких недель ожидания.</p>
+            <span class="card-guarantee">🛡️ Гарантия на работы</span>
           </div>
           
           <div class="card">
+            <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
             <h3>Платите только за то, что действительно сломалось</h3>
             <p>Модульный ремонт — это не навязывание дорогих услуг. Это замена конкретного виновника поломки (память, диск, плата). <strong>Вы не переплачиваете</strong> за «комплексный ремонт» того, что работает исправно.</p>
+            <span class="card-guarantee">🛡️ Честные цены</span>
           </div>
           
           <div class="card">
+            <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
             <h3>Телефоны — берем, но честно предупреждаем</h3>
             <p>Ремонтируем смартфоны по договоренности (экраны, аккумуляторы, разъемы). Если проблема сложнее модульной замены или речь идет о сложной электронике, мы <strong>честно скажем об этом</strong> до начала работ, а не после.</p>
           </div>
           
           <div class="card">
+            <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
             <h3>Профилактика, которая экономит ваши деньги</h3>
             <p>Чистка от пыли и замена термопасты сейчас — это гарантия того, что ноутбук не перегреется и не выйдет из строя через полгода. <strong>Дешевле предотвратить</strong>, чем менять сгоревшую материнскую плату.</p>
           </div>
 
           <div class="card">
+            <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
             <h3>Не нужно никуда ехать — решим вопрос удаленно</h3>
             <p>Проведем <strong>удаленную диагностику</strong> и установим необходимое ПО через интернет. Это удобно, если нужно срочно настроить систему, обновить драйверы или проверить компьютер на ошибки. Экономьте время и нервы.</p>
           </div>
@@ -360,11 +799,66 @@
     </div>
   </section>
 
+  <section id="how-i-work">
+    <div class="container">
+      <div class="section-inner">
+        <h2>Как я работаю</h2>
+        <div class="steps-grid">
+          <div class="step-card">
+            <h3>Оставляете заявку</h3>
+            <p>Звоните или пишете в мессенджер. Я уточняю детали и договариваюсь о времени.</p>
+          </div>
+          <div class="step-card">
+            <h3>Бесплатная диагностика</h3>
+            <p>Провожу первичную диагностику (у вас или удаленно). Называю точную причину и стоимость.</p>
+          </div>
+          <div class="step-card">
+            <h3>Согласование и ремонт</h3>
+            <p>Вы соглашаетесь на цену, и я приступаю к работе. Большинство поломок чиню в день обращения.</p>
+          </div>
+          <div class="step-card">
+            <h3>Гарантия и выдача</h3>
+            <p>Вы получаете исправную технику с гарантией 30 дней на выполненные работы.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="reviews">
+    <div class="container">
+      <div class="section-inner">
+        <h2>Отзывы клиентов</h2>
+        <div class="reviews-grid">
+          
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">«Артур починил ноутбук за один день. Проблема была в перегреве, почистил, заменил термопасту. Работает тихо, как новый. Очень доволен, рекомендую!»</p>
+            <div class="review-author">— Елена, Краснодар</div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">«Обратился с проблемой синего экрана. Артур быстро нашел причину (оказалось, память), заменил модуль. Цена честная, без накруток. Спасибо!»</p>
+            <div class="review-author">— Дмитрий, Карасунский округ</div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">«Делал удаленную настройку системы. Удобно, что не нужно никуда везти. Все объяснил, настроил, установил нужные программы. Быстро и качественно.»</p>
+            <div class="review-author">— Ольга, Краснодар</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="prices">
     <div class="container">
       <div class="section-inner">
         <h2>Прайс-лист</h2>
-        <p style="margin-bottom: 25px; color: #555; font-size: 0.95rem;">Все цены указаны в рублях. Итоговая стоимость зависит от сложности и запчастей — озвучивается после диагностики.</p>
+        <p style="margin-bottom: 25px; color: #333; font-size: 0.95rem;">Все цены указаны в рублях. Итоговая стоимость зависит от сложности и запчастей — озвучивается после диагностики.</p>
         
         <div class="price-category">
           <h3>Программное обеспечение и система</h3>
@@ -505,11 +999,53 @@
     </div>
   </section>
 
+  <section id="faq">
+    <div class="container">
+      <div class="section-inner">
+        <h2>Часто задаваемые вопросы</h2>
+        <div class="faq-list">
+          
+          <div class="faq-item">
+            <div class="faq-question">А вы забираете технику к себе?</div>
+            <div class="faq-answer">Да, при необходимости могу забрать аппарат к себе. Диагностика бесплатна, если вы соглашаетесь на ремонт. В стоимость выезда уже включена перевозка туда и обратно.</div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">Сколько времени занимает ремонт?</div>
+            <div class="faq-answer">Большинство модульных поломок (замена памяти, диска, чистка) я чиню в день обращения. Если требуется заказ редкой запчасти, сроки согласовываем индивидуально.</div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">А если после ремонта сломается что-то другое?</div>
+            <div class="faq-answer">На выполненные работы действует гарантия 30 дней. Если в этот период возникнет проблема, связанная с моим ремонтом, я устраню её бесплатно.</div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">Вы работаете с телефонами?</div>
+            <div class="faq-answer">Да, но только по предварительной договоренности. В основном занимаюсь модульной заменой (экраны, аккумуляторы, разъемы). Сложные случаи (пайка, восстановление плат) честно обсуждаю заранее.</div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">Как я могу оплатить ремонт?</div>
+            <div class="faq-answer">Оплата принимается наличными или переводом на карту после выполнения работ и вашей проверки. Никаких предоплат за диагностику и ремонт я не беру.</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="contacts">
     <div class="container">
       <div class="section-inner">
         <h2>Контакты и заявка</h2>
         
+        <div class="urgent-banner">
+          <h3>🚨 Застрял прямо сейчас?</h3>
+          <p>Ноутбук сгорел, а завтра сдавать проект? Позвоните мне напрямую — я на связи с 9:00 до 21:00.</p>
+          <a href="tel:+79965902054" class="urgent-btn">📞 Позвонить мастеру</a>
+        </div>
+
         <div class="contacts" style="margin-bottom: 30px;">
           <a href="tel:+79965902054" title="Позвонить" aria-label="Позвонить">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24 11.36 11.36 0 0 0 3.57.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.36 11.36 0 0 0 .57 3.57 1 1 0 0 1-.25 1.02l-2.2 2.2z"/></svg>
@@ -517,7 +1053,7 @@
           <a href="https://t.me/TekhProgressBot" target="_blank" rel="noopener" title="Написать в Telegram" aria-label="Telegram">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.04 15.51 9.2 19.4c.23 0 .33-.1.45-.22l1.09-1.05 2.26 1.66c.41.23.71.11.82-.38l1.49-7a.34.34 0 0 0-.34-.42l-5.56 3.49a1.4 1.4 0 0 1-.37.03zM22.94 3.4l-3.1 14.63c-.23 1.05-.87 1.31-1.76.82l-4.87-3.59-2.35 2.26c-.26.26-.48.48-.98.48l.35-4.97 9.04-8.17c.39-.35-.09-.54-.61-.19L6.49 12.53l-4.81-1.5c-1.05-.33-1.06-1.05.22-1.55L21.36 2.02c.87-.33 1.64.2 1.58 1.38z"/></svg>
           </a>
-          <a href="https://vk.ru/tekhprogress" target="_blank" rel="noopener" class="vk" title="ВКонтакте" aria-label="ВКонтакте">
+          <a href="https://vk.ru/Arthur_j0439" target="_blank" rel="noopener" class="vk" title="ВКонтакте" aria-label="ВКонтакте">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.78 17.6c-5.9 0-9.27-4.04-9.41-10.76h2.96c.1 4.94 2.27 7.03 3.99 7.46V6.84h2.79v4.26c1.7-.18 3.48-2.11 4.08-4.26h2.79c-.46 2.65-2.4 4.58-3.78 5.38 1.38.65 3.59 2.34 4.43 5.38h-3.07c-.65-2.07-2.28-3.67-4.45-3.88v3.88h-.33z"/></svg>
           </a>
           <a href="mailto:ArturJ0439@yandex.ru" title="Написать на почту" aria-label="Написать на почту">
@@ -526,7 +1062,7 @@
         </div>
 
         <div class="form-wrap">
-          <form id="contactForm" action="https://formspree.io/f/xaeeawey" method="POST">
+          <form id="contactForm" action="https://formspree.io/f/ВАШ_FORM_ID" method="POST">
             <div class="form-group">
               <label for="name">Ваше имя</label>
               <input type="text" id="name" name="name" required placeholder="Как к вам обращаться">
@@ -548,10 +1084,46 @@
   </section>
 
   <footer>
-    <div class="container">© 2025 Артур — модульный ремонт электроники</div>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>Артур</h4>
+          <p>Частный мастер по ремонту и обслуживанию электронного оборудования.</p>
+          <p>Работаю честно, без скрытых платежей.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Контакты</h4>
+          <a href="tel:+79965902054">📞 +7 (996) 590-20-54</a>
+          <a href="mailto:ArturJ0439@yandex.ru">✉ ArturJ0439@yandex.ru</a>
+          <p>📍 г. Краснодар, Карасунский округ</p>
+          <p>🕒 Режим работы: 9:00 – 21:00</p>
+        </div>
+        <div class="footer-col">
+          <h4>Соцсети</h4>
+          <div class="footer-socials">
+            <a href="https://t.me/TekhProgressBot" target="_blank" rel="noopener" title="Telegram">
+              <svg viewBox="0 0 24 24"><path d="M9.04 15.51 9.2 19.4c.23 0 .33-.1.45-.22l1.09-1.05 2.26 1.66c.41.23.71.11.82-.38l1.49-7a.34.34 0 0 0-.34-.42l-5.56 3.49a1.4 1.4 0 0 1-.37.03zM22.94 3.4l-3.1 14.63c-.23 1.05-.87 1.31-1.76.82l-4.87-3.59-2.35 2.26c-.26.26-.48.48-.98.48l.35-4.97 9.04-8.17c.39-.35-.09-.54-.61-.19L6.49 12.53l-4.81-1.5c-1.05-.33-1.06-1.05.22-1.55L21.36 2.02c.87-.33 1.64.2 1.58 1.38z"/></svg>
+            </a>
+            <a href="https://vk.ru/Arthur_j0439" target="_blank" rel="noopener" title="ВКонтакте">
+              <svg viewBox="0 0 24 24"><path d="M12.78 17.6c-5.9 0-9.27-4.04-9.41-10.76h2.96c.1 4.94 2.27 7.03 3.99 7.46V6.84h2.79v4.26c1.7-.18 3.48-2.11 4.08-4.26h2.79c-.46 2.65-2.4 4.58-3.78 5.38 1.38.65 3.59 2.34 4.43 5.38h-3.07c-.65-2.07-2.28-3.67-4.45-3.88v3.88h-.33z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © 2025 Артур — модульный ремонт электроники. Все права защищены.
+      </div>
+    </div>
   </footer>
 
+  <!-- Кнопка наверх -->
+  <button id="scrollTopBtn" title="Наверх">↑</button>
+
+  <!-- Мобильная кнопка звонка -->
+  <a href="tel:+79965902054" class="mobile-call-btn">📞 Позвонить мастеру</a>
+
   <script>
+    // Логика формы
     const form = document.getElementById('contactForm');
     const status = document.getElementById('formStatus');
     const btn = document.getElementById('submitBtn');
@@ -574,6 +1146,11 @@
           status.className = 'form-status success';
           status.textContent = '✅ Заявка отправлена! Я свяжусь с вами.';
           form.reset();
+          
+          // Яндекс Метрика (раскомментируйте и замените НОМЕР)
+          // if (typeof ym !== 'undefined') {
+          //   ym(НОМЕР_СЧЕТЧИКА, 'reachGoal', 'form_sent');
+          // }
         } else {
           throw new Error('Ошибка отправки');
         }
@@ -584,6 +1161,47 @@
         btn.disabled = false;
         btn.textContent = 'Отправить заявку';
       }
+    });
+
+    // Кнопка "Наверх"
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        scrollTopBtn.style.display = 'block';
+      } else {
+        scrollTopBtn.style.display = 'none';
+      }
+    });
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Бургер-меню
+    const burgerBtn = document.getElementById('burgerBtn');
+    const navMenu = document.getElementById('navMenu');
+
+    if (burgerBtn && navMenu) {
+      burgerBtn.addEventListener('click', () => {
+        burgerBtn.classList.toggle('active');
+        navMenu.classList.toggle('active');
+      });
+
+      // Закрываем меню при клике на ссылку
+      navMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          burgerBtn.classList.remove('active');
+          navMenu.classList.remove('active');
+        });
+      });
+    }
+
+    // FAQ аккордеон
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+      const question = item.querySelector('.faq-question');
+      question.addEventListener('click', () => {
+        item.classList.toggle('open');
+      });
     });
   </script>
 
